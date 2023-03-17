@@ -23,9 +23,7 @@ jobs:
       - name: Show message
         run: |
           echo "second step"
-          echo ::set-output name=tag::"test";
-    outputs:
-      tag: ${{ steps.job2.outputs.tag }}
+          echo "tag=test" >> $GITHUB_OUTPUT
 
   job3:
     needs: job1
