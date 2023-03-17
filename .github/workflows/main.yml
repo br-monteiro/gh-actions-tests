@@ -25,7 +25,7 @@ jobs:
           echo "second step"
           echo ::set-output name=tag::"test";
     outputs:
-      tag: ${{ steps.set-env.outputs.tag }}
+      tag: ${{ steps.job2.outputs.tag }}
 
   job3:
     needs: job1
