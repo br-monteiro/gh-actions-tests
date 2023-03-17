@@ -7,17 +7,32 @@ jobs:
   job1:
     needs: job2
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
 
       - name: Show message
-        run: echo "first step"
+        run: |
+          echo "first step"
+          echo "Deploying version `${{ needs.job2.outputs.tag }}`"
+
   job2:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
 
       - name: Show message
-        run: echo "second step"
+        run: |
+          echo "second step"
+          echo ::set-output name=tag::"test";
+    outputs:
+      tag: ${{ steps.set-env.outputs.tag }}
+
+  job3:
+    needs: job1
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Show message
+        run: |
+          echo "Deploying version `${{ needs.job2.outputs.tag }}`"
