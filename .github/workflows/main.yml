@@ -3,7 +3,7 @@ name: Github Action Teste
 on:
   workflow_dispatch:
     inputs:
-      cluster_name:
+      tag:
         description: "Tag value"
         required: true
 
