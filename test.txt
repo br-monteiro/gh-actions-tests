@@ -1,0 +1,1 @@
+eu estou diretamente na main, sem nenhuma versão atrelada
