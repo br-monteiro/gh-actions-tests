@@ -15,10 +15,14 @@ jobs:
   check-tag:
     runs-on: ubuntu-latest
     steps:
-      - name: Select Tag Value
-        id: select_tag
-        run: |
-          echo "tag: $TAG"
+      - name: Check TAG
+        if: ${{ !startsWith(github.ref, 'refs/tags/v') }}
+        uses: actions/github-script@v6
+        with:
+          script: |
+            core.setFailed('Please, select a valid TAG instead branch [ ${{ github.ref_name }} ]')
+      - name: Display env TAG
+        run: echo ${{ env.TAG }}
 
 # jobs:
 #   job1:
