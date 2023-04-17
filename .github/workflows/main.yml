@@ -9,11 +9,10 @@ on:
   release:
     types:
       - published
-env:
-  IS_ALLOWED: ${{ github.event_name == 'release' || github.event_name == 'workflow_dispatch' }}
+
 jobs:
   check-tag:
-    if: ${{ env.IS_ALLOWED }}
+    if: ${{ github.event_name == 'release' || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     steps:
       - name: Select Tag Value
