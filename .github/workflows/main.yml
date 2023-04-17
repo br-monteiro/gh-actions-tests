@@ -6,35 +6,48 @@ on:
       tag:
         description: "Tag value"
         required: true
+  release:
+    types:
+      - published
 env:
-  TAG: 'v1.0.0'
-
+  IS_ALLOWED: ${{ github.event_name == 'release' || github.event_name == 'workflow_dispatch' }}
 jobs:
-  job1:
+  check-tag:
+    if: ${{ IS_ALLOWED }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-          ref: ${{ github.event.inputs.tag }}
-      - name: Display tag
-        run: echo ${{ github.event.inputs.tag }}
-      - name: Display tag (new version)
-        run: echo ${{ inputs.tag }}
-      - name: Display test.txt
-        run: cat ./test.txt
-      - name: Display env TAG
-        run: echo ${{ env.TAG }}
-  job2:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Display env TAG
-        run: echo ${{ env.TAG }}
-  job3:
-    runs-on: ubuntu-latest
-    env:
-      TAG: ${{ env.TAG }}
-    steps:
-      - name: Display env TAG
-        run: echo ${{ env.TAG }}
+      - name: Select Tag Value
+        id: select_tag
+        run: |
+          echo "git_tag_value=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+          echo "tag value: ${git_tag_value}"
+
+# jobs:
+#   job1:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v3
+#         with:
+#           fetch-depth: 0
+#           ref: ${{ github.event.inputs.tag }}
+#       - name: Display tag
+#         run: echo ${{ github.event.inputs.tag }}
+#       - name: Display tag (new version)
+#         run: echo ${{ inputs.tag }}
+#       - name: Display test.txt
+#         run: cat ./test.txt
+#       - name: Display env TAG
+#         run: echo ${{ env.TAG }}
+#   job2:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Display env TAG
+#         run: echo ${{ env.TAG }}
+#   job3:
+#     runs-on: ubuntu-latest
+#     env:
+#       TAG: ${{ env.TAG }}
+#     steps:
+#       - name: Display env TAG
+#         run: echo ${{ env.TAG }}
 
