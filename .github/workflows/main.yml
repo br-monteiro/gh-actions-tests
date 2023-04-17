@@ -6,6 +6,8 @@ on:
       tag:
         description: "Tag value"
         required: true
+env:
+  TAG: 'v1.0.0'
 
 jobs:
   job1:
@@ -21,4 +23,11 @@ jobs:
         run: echo ${{ inputs.tag }}
       - name: Display test.txt
         run: cat ./test.txt
+      - name: Display env TAG
+        run: echo ${{ env.TAG }}
+  job2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Display env TAG
+        run: echo ${{ env.TAG }}
 
