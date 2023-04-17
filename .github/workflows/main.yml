@@ -41,11 +41,11 @@ jobs:
 #     steps:
 #       - name: Display env TAG
 #         run: echo ${{ env.TAG }}
-#   job3:
-#     runs-on: ubuntu-latest
-#     env:
-#       TAG: ${{ env.TAG }}
-#     steps:
-#       - name: Display env TAG
-#         run: echo ${{ env.TAG }}
+  job3:
+    runs-on: ubuntu-latest
+    env:
+      TAG: ${{ env.TAG }}
+    steps:
+      - name: Display env TAG
+        run: echo ${{ env.TAG }}
 
