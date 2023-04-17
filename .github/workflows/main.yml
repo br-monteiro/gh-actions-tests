@@ -13,7 +13,7 @@ env:
   IS_ALLOWED: ${{ github.event_name == 'release' || github.event_name == 'workflow_dispatch' }}
 jobs:
   check-tag:
-    if: ${{ IS_ALLOWED }}
+    if: ${{ env.IS_ALLOWED }}
     runs-on: ubuntu-latest
     steps:
       - name: Select Tag Value
