@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check TAG
-        if: ${{ !startsWith($TAG, 'v') }}
+        if: ${{ !startsWith("$TAG", 'v') }}
         uses: actions/github-script@v6
         with:
           script: |
