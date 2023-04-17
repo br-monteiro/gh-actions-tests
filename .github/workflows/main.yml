@@ -9,19 +9,16 @@ on:
   release:
     types:
       - published
-
+env:
+  TAG: ${{ github.event.release.tag_name || github.event.inputs.tag }}
 jobs:
   check-tag:
-    if: ${{ github.event_name == 'release' || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     steps:
       - name: Select Tag Value
         id: select_tag
         run: |
-          tag=${GITHUB_REF#refs/tags/}
-          echo "git_tag_value=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
-          echo "tag value - native: ${GITHUB_REF#refs/tags/}"
-          echo "tag: $tag"
+          echo "tag: $TAG"
 
 # jobs:
 #   job1:
