@@ -19,7 +19,8 @@ jobs:
         id: select_tag
         run: |
           echo "git_tag_value=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
-          echo "tag value: ${git_tag_value}"
+          echo "tag value: ${env.git_tag_value}"
+          echo "tag value - native: ${GITHUB_REF#refs/tags/}"
 
 # jobs:
 #   job1:
