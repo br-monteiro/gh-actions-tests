@@ -14,6 +14,8 @@ function updateVersion(target, type) {
 
   if (type === 'MAJOR') {
     major = Number(major) + 1
+    minor = 0
+    patch = 0
   } else if (type === 'MINOR') {
     minor = Number(minor) + 1
   } else {

@@ -51,6 +51,8 @@ jobs:
 
       - name: Commit changes
         run: |
+          git config --global user.email "bruno.monteirodg@gmail.com"
+          git config --global user.name "Edinho Monteiro"
           git commit -am "chore: update release version"
 
 #   job2:
