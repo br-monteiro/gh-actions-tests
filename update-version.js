@@ -30,4 +30,5 @@ FILES.forEach((file) => {
   contentJson.version = updateVersion(contentJson.version, releaseType)
 
   fs.writeFileSync(file, JSON.stringify(contentJson, null, 2))
+  console.log(`#### update version of ${file} to ${contentJson.version}`)
 })

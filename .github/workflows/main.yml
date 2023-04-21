@@ -50,12 +50,8 @@ jobs:
         run: node update-version.js ${{ github.event.inputs.releaseType }}
 
       - name: Commit changes
-        uses: EndBug/add-and-commit@v9
-        with:
-          author_name: Edinho Monteiro
-          author_email: bruno.monteirodg@gmail.com
-          message: 'chore: update release version'
-          add: '.'
+        run: |
+          git commit -am "chore: update release version"
 
 #   job2:
 #     runs-on: ubuntu-latest
