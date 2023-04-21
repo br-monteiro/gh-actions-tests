@@ -36,6 +36,7 @@ on:
 
 jobs:
   update_release:
+    if: $GITHUB_REF == "main"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
