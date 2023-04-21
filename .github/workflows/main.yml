@@ -3,43 +3,60 @@ name: Github Action Teste
 on:
   workflow_dispatch:
     inputs:
-      tag:
-        description: "Tag value"
+      releaseType:
+        description: 'Release Type'
         required: true
-  release:
-    types:
-      - published
-env:
-  TAG: ${{ github.event.release.tag_name || github.event.inputs.tag }}
-jobs:
-  check-tag:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check TAG
-        if: ${{ !startsWith(env.TAG, 'v') }}
-        uses: actions/github-script@v6
-        with:
-          script: |
-            core.setFailed('Please, select a valid TAG instead branch [ ${{ github.ref_name }} ]')
-      - name: Display env TAG
-        run: echo ${{ env.TAG }}
-
+        default: 'PATCH'
+        type: choice
+        options:
+        - MAJOR
+        - MINOR
+        - PATCH
+#     inputs:
+#       tag:
+#         description: "Tag value"
+#         required: true
+#   release:
+#     types:
+#       - published
+# env:
+#   TAG: ${{ github.event.release.tag_name || github.event.inputs.tag }}
 # jobs:
-#   job1:
+#   check-tag:
 #     runs-on: ubuntu-latest
 #     steps:
-#       - uses: actions/checkout@v3
+#       - name: Check TAG
+#         if: ${{ !startsWith(env.TAG, 'v') }}
+#         uses: actions/github-script@v6
 #         with:
-#           fetch-depth: 0
-#           ref: ${{ github.event.inputs.tag }}
-#       - name: Display tag
-#         run: echo ${{ github.event.inputs.tag }}
-#       - name: Display tag (new version)
-#         run: echo ${{ inputs.tag }}
-#       - name: Display test.txt
-#         run: cat ./test.txt
+#           script: |
+#             core.setFailed('Please, select a valid TAG instead branch [ ${{ github.ref_name }} ]')
 #       - name: Display env TAG
 #         run: echo ${{ env.TAG }}
+
+jobs:
+  update_release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Update version
+        run: node update-version.js ${{ github.event.inputs.releaseType }}
+
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          author_name: Edinho Monteiro
+          author_email: bruno.monteirodg@gmail.com
+          message: 'chore: update release version'
+          add: '.'
+
 #   job2:
 #     runs-on: ubuntu-latest
 #     steps:
