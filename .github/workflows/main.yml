@@ -55,7 +55,7 @@ jobs:
         run: |
           git config --global user.email "bruno.monteirodg@gmail.com"
           git config --global user.name "Edinho Monteiro"
-          git commit -am "chore: update release version"
+          git commit -am "feat: update release version"
           git push origin main
 
 #   job2:
