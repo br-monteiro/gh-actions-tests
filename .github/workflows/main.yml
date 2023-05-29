@@ -82,4 +82,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: print
-        run: echo $GITHUB_REF
+        run: echo ${GITHUB_REF#refs/tags/}
