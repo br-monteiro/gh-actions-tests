@@ -89,4 +89,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: print
-        run: echo ${{ github.event.inputs.tag_value || ${GITHUB_REF#refs/tags/}}}
+        run: echo ${{ github.event.inputs.tag_value || GITHUB_REF#refs/tags/}}
