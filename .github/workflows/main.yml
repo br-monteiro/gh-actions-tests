@@ -73,8 +73,15 @@
 
 name: Test
 on:
+  workflow_dispatch:
+    inputs:
+      tag_value:
+        description: "Tag value"
+        required: true
   release:
     types: [published]
+env:
+  TAG: ${ github.event.inputs.tag_value || GITHUB_REF#refs/tags/ }
 
 jobs:
   printer:
@@ -82,4 +89,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: print
-        run: echo ${GITHUB_REF#refs/tags/}
+        run: echo ${{ env.TAG }}
