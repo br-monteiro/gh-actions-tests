@@ -84,9 +84,18 @@ on:
 #   # TAG_REF: ${GITHUB_REF#refs/tags/}
 
 jobs:
+  define-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: tag from dispatch
+        if: ${ github.event.inputs.tag_value }
+        run: echo ::set-output name=TAG_REF::${github.event.inputs.tag_value}
+      - name: tag from release
+        if: ${ !github.event.inputs.tag_value }
+        run: echo ::set-output name=TAG_REF::${GITHUB_REF#refs/*/}
   printer:
     name: Print version
     runs-on: ubuntu-latest
     steps:
       - name: print
-        run: echo ${{ github.event.inputs.tag_value || GITHUB_REF#refs/tags/}}
+        run: echo ${{ env.TAG_REF }}
