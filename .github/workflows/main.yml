@@ -100,6 +100,4 @@ jobs:
       - define-tag
     steps:
       - name: print
-        run: echo ${{ steps.define-tag.outputs.TAG_REF }}
-      - name: print
-        run: echo ${{ github.event.inputs.tag_value }}
+        run: echo ${{ github.event.inputs.tag_value || github.ref_name }}
