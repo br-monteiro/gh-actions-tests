@@ -81,7 +81,7 @@ on:
   release:
     types: [published]
 env:
-  TAG: ${ github.event.inputs.tag_value || GITHUB_REF#refs/tags/ }
+  TAG: ${{ github.event.inputs.tag_value || GITHUB_REF#refs/tags/ }}
 
 jobs:
   printer:
