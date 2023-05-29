@@ -80,8 +80,8 @@ on:
         required: true
   release:
     types: [published]
-# env:
-#   # TAG_REF: ${GITHUB_REF#refs/tags/}
+env:
+  TAG_REF: ${{ github.event.inputs.tag_value || github.ref_name }}
 
 jobs:
   printer:
@@ -89,4 +89,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: print
-        run: echo ${{ github.event.inputs.tag_value || github.ref_name }}
+        run: echo ${{ env.TAG_REF }}
