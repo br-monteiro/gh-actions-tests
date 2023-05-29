@@ -91,7 +91,7 @@ jobs:
         if: ${ github.event.inputs.tag_value }
         run: echo ::set-output name=TAG_REF::${github.event.inputs.tag_value}
       - name: tag from release
-        if: ${ !github.event.inputs.tag_value }
+        if: ${{ !github.event.inputs.tag_value }}
         run: echo ::set-output name=TAG_REF::${GITHUB_REF#refs/*/}
   printer:
     name: Print version
