@@ -36,6 +36,7 @@ jobs:
           TAG: ${{ env.TAG_REF }}
           THEME: ${{ github.event.inputs.theme }}
           NAMESPACE: 'website'
+          SECRET: ${{ secrets.SECRET }}
         run: |
           ls -la
           ./deploy/bin/trigger.sh
