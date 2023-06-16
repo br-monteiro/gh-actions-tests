@@ -8,6 +8,11 @@ on:
       theme:
         description: "Theme"
         required: true
+        default: zap
+        type: choice
+        options:
+          - "zap"
+          - "viva"
   release:
     types: [published]
 env:
