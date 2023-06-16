@@ -4,6 +4,7 @@
 # TAG=${2:-$TAG}
 # THEME=${6:-$THEME}
 # NAMESPACE=${3:-$NAMESPACE}
+SECRET=${1:-$SECRET}
 
 config_file=k8s-$ENVIRONMENT-$TAG.txt
 
