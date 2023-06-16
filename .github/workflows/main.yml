@@ -34,7 +34,8 @@ jobs:
         env:
           ENVIRONMENT: 'qa'
           TAG: ${{ env.TAG_REF }}
-          THEME: ${{ github.event.inputs.theme }}
+          # THEME: ${{ github.event.inputs.theme }}
+          THEME: ${{ secrets.THEME }}
           NAMESPACE: 'website'
           SECRET: ${{ secrets.SECRET }}
         run: |
