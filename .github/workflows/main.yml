@@ -32,4 +32,6 @@ jobs:
           TAG: ${{ env.TAG_REF }}
           THEME: ${{ github.event.inputs.theme }}
           NAMESPACE: 'website'
-        run: ./deploy/bin/trigger.sh
+        run: |
+          ls -la
+          ./deploy/bin/trigger.sh
