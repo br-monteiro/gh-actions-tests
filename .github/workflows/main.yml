@@ -13,6 +13,11 @@ on:
         options:
           - "zap"
           - "viva"
+      aux_image_redis:
+        description: "Build aux image redis"
+        required: true
+        type: boolean
+        default: true
   release:
     types: [published]
 env:
@@ -30,14 +35,17 @@ jobs:
       - name: print
         run: echo ${{ env.TAG_REF }}
 
-      - name: Deploy to k8s
-        env:
-          ENVIRONMENT: 'qa'
-          TAG: ${{ env.TAG_REF }}
-          # THEME: ${{ github.event.inputs.theme }}
-          THEME: ${{ secrets.THEME }}
-          NAMESPACE: 'website'
-          SECRET: ${{ secrets.SECRET }}
-        run: |
-          ls -la
-          ./deploy/bin/trigger.sh
+      - name: aux_image_redis
+        run: echo ${{ github.event.inputs.aux_image_redis }}
+
+      # - name: Deploy to k8s
+      #   env:
+      #     ENVIRONMENT: 'qa'
+      #     TAG: ${{ env.TAG_REF }}
+      #     # THEME: ${{ github.event.inputs.theme }}
+      #     THEME: ${{ secrets.THEME }}
+      #     NAMESPACE: 'website'
+      #     SECRET: ${{ secrets.SECRET }}
+      #   run: |
+      #     ls -la
+      #     ./deploy/bin/trigger.sh
