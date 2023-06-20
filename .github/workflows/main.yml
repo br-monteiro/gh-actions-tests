@@ -22,6 +22,7 @@ on:
     types: [published]
 env:
   TAG_REF: ${{ github.event.inputs.tag_value || github.ref_name }}
+  TEST: ${{ github.event.inputs.aux_image_redis || true }}
 
 jobs:
   printer:
@@ -36,7 +37,7 @@ jobs:
         run: echo ${{ env.TAG_REF }}
 
       - name: aux_image_redis
-        run: echo ${{ github.event.inputs.aux_image_redis }}
+        run: echo ${{ env.TEST }}
 
       # - name: Deploy to k8s
       #   env:
