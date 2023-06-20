@@ -40,7 +40,7 @@ jobs:
         run: echo ${{ env.TEST }}
 
       - name: aux_image_redis
-        if: ${{ env.TEST }}
+        if: ${{ env.TEST == 'true' }}
         run: echo ${{ env.TEST }}
 
       # - name: Deploy to k8s
