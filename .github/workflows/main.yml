@@ -23,6 +23,7 @@ on:
 env:
   TAG_REF: ${{ github.event.inputs.tag_value || github.ref_name }}
   TEST: ${{ github.event.inputs.aux_image_redis || true }}
+  HASH: ${GITHUB_SHA::8}
 
 jobs:
   printer:
@@ -34,7 +35,7 @@ jobs:
           fetch-depth: 0
 
       - name: print sha
-        run: echo ${GITHUB_SHA::8 }
+        run: echo ${{ env.HASH }}
 
       - name: print
         run: echo ${{ env.TAG_REF }}
