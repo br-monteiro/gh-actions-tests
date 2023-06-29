@@ -33,6 +33,9 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: print sha
+        run: echo ${GITHUB_SHA::8 }
+
       - name: print
         run: echo ${{ env.TAG_REF }}
 
