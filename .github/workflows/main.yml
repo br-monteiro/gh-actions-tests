@@ -25,6 +25,9 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: print value
-        run: echo "sha_6=$SHA_6"
+      - name: print value - outputs
+        run: echo "sha_6=${{ needs.define-variable.outputs.SHA_6 }}"
+
+      - name: print value - outputs
+        run: echo "sha_6=${{ env.SHA_6 }}"
 
