@@ -22,26 +22,28 @@ jobs:
           echo "SHA_6=${GITHUB_SHA::6}" >> $GITHUB_OUTPUT
       - name: print value
         run: echo "sha_6=$SHA_6"
-  print-variable:
-    name: Print version
-    runs-on: ubuntu-latest
-    needs: define-variable
-    env:
-      IMAGE: ${{ github.env.REPOSITORY }}:anonymous-api-${{ needs.define-variable.outputs.SHA_6 }}
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+      - name: print var
+        run: echo "url=${{ vars.FIRST_VAR }}"
+  # print-variable:
+  #   name: Print version
+  #   runs-on: ubuntu-latest
+  #   needs: define-variable
+  #   env:
+  #     IMAGE: ${{ github.env.REPOSITORY }}:anonymous-api-${{ needs.define-variable.outputs.SHA_6 }}
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #       with:
+  #         fetch-depth: 0
 
-      - name: print value - outputs
-        run: echo "sha_6=${{ needs.define-variable.outputs.SHA_6 }}"
+  #     - name: print value - outputs
+  #       run: echo "sha_6=${{ needs.define-variable.outputs.SHA_6 }}"
 
-      - name: print value - env
-        run: echo "sha_6=${{ env.SHA_6 }}"
+  #     - name: print value - env
+  #       run: echo "sha_6=${{ env.SHA_6 }}"
 
-      - name: print image name
-        run: |
-          echo "image=${{ env.IMAGE }}"
-          echo "image=$IMAGE"
-          echo "image=$REPOSITORY$IMAGE"
+  #     - name: print image name
+  #       run: |
+  #         echo "image=${{ env.IMAGE }}"
+  #         echo "image=$IMAGE"
+  #         echo "image=$REPOSITORY$IMAGE"
 
