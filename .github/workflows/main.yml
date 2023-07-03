@@ -43,4 +43,5 @@ jobs:
         run: |
           echo "image=${{ env.IMAGE }}"
           echo "image=$IMAGE"
+          echo "image=$REPOSITORY$IMAGE"
 
