@@ -28,6 +28,9 @@ jobs:
         run: echo "sha_6=$SHA_6"
       - name: print var
         run: echo "url=${{ vars.FIRST_VAR }}"
+      - name: force error
+        run: exit 1
+
   skiped:
     if: ${{ github.event.inputs.should_build_images == 'true' }}
     name: Skiped
