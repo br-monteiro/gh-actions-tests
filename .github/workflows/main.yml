@@ -1,32 +1,9 @@
 name: Test
 on:
   workflow_dispatch:
-    inputs:
-      tag_value:
-        description: "Tag value"
-        required: true
-      theme:
-        description: "Theme"
-        required: true
-        default: zap
-        type: choice
-        options:
-          - "zap"
-          - "viva"
-      aux_image_redis:
-        description: "Build aux image redis"
-        required: true
-        type: boolean
-        default: true
-  release:
-    types: [published]
-env:
-  TAG_REF: ${{ github.event.inputs.tag_value || github.ref_name }}
-  TEST: ${{ github.event.inputs.aux_image_redis || true }}
-  HASH: ${GITHUB_SHA::8}
 
 jobs:
-  printer:
+  define-variable:
     name: Print version
     runs-on: ubuntu-latest
     steps:
@@ -34,27 +11,19 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: print sha
-        run: echo ${{ env.HASH }}
+      - name: define variable
+        run:  echo "SHA_6=${GITHUB_SHA::6}" >> $GITHUB_ENV
 
-      - name: print
-        run: echo ${{ env.TAG_REF }}
+      - name: print value
+        run: echo "sha_6=$SHA_6"
+  print-variable:
+    name: Print version
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-      - name: aux_image_redis
-        run: echo ${{ env.TEST }}
+      - name: print value
+        run: echo "sha_6=$SHA_6"
 
-      - name: aux_image_redis
-        if: ${{ env.TEST == 'true' }}
-        run: echo ${{ env.TEST }}
-
-      # - name: Deploy to k8s
-      #   env:
-      #     ENVIRONMENT: 'qa'
-      #     TAG: ${{ env.TAG_REF }}
-      #     # THEME: ${{ github.event.inputs.theme }}
-      #     THEME: ${{ secrets.THEME }}
-      #     NAMESPACE: 'website'
-      #     SECRET: ${{ secrets.SECRET }}
-      #   run: |
-      #     ls -la
-      #     ./deploy/bin/trigger.sh
