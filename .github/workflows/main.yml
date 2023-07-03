@@ -1,7 +1,11 @@
 name: Test
 on:
   workflow_dispatch:
-
+    inputs:
+      should_build_images:
+        description: 'Build Docker Images?'
+        type: boolean
+        default: false
 env:
   REPOSITORY: zap/squad-consideration/anonymous
 jobs:
@@ -24,26 +28,23 @@ jobs:
         run: echo "sha_6=$SHA_6"
       - name: print var
         run: echo "url=${{ vars.FIRST_VAR }}"
-  # print-variable:
-  #   name: Print version
-  #   runs-on: ubuntu-latest
-  #   needs: define-variable
-  #   env:
-  #     IMAGE: ${{ github.env.REPOSITORY }}:anonymous-api-${{ needs.define-variable.outputs.SHA_6 }}
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #       with:
-  #         fetch-depth: 0
+  skiped:
+    if: ${{ github.event.inputs.should_build_images == 'true' }}
+    name: Skiped
+    needs: define-variable
+    runs-on: ubuntu-latest
+    steps:
+      - name: print value
+        run: echo "passou"
 
-  #     - name: print value - outputs
-  #       run: echo "sha_6=${{ needs.define-variable.outputs.SHA_6 }}"
+  other:
+    name: Other
+    runs-on: ubuntu-latest
+    needs:
+      - define-variable
+      - skiped
+    steps:
+      - name: print value
+        run: echo "passou"
 
-  #     - name: print value - env
-  #       run: echo "sha_6=${{ env.SHA_6 }}"
-
-  #     - name: print image name
-  #       run: |
-  #         echo "image=${{ env.IMAGE }}"
-  #         echo "image=$IMAGE"
-  #         echo "image=$REPOSITORY$IMAGE"
 
