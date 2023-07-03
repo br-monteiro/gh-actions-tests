@@ -6,14 +6,18 @@ jobs:
   define-variable:
     name: Define version
     runs-on: ubuntu-latest
+    outputs:
+      SHA_6: ${{ steps.define-variable.outputs.SHA_6 }}
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
       - name: define variable
-        run:  echo "SHA_6=${GITHUB_SHA::6}" >> $GITHUB_ENV
-
+        id: define-variable
+        run: |
+          echo "SHA_6=${GITHUB_SHA::6}" >> $GITHUB_ENV
+          echo "echo "SHA_6=${GITHUB_SHA::6}" >> $GITHUB_OUTPUT
       - name: print value
         run: echo "sha_6=$SHA_6"
   print-variable:
@@ -28,6 +32,6 @@ jobs:
       - name: print value - outputs
         run: echo "sha_6=${{ needs.define-variable.outputs.SHA_6 }}"
 
-      - name: print value - outputs
+      - name: print value - env
         run: echo "sha_6=${{ env.SHA_6 }}"
 
