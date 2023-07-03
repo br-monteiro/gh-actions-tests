@@ -4,7 +4,7 @@ on:
 
 jobs:
   define-variable:
-    name: Print version
+    name: Define version
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -19,6 +19,7 @@ jobs:
   print-variable:
     name: Print version
     runs-on: ubuntu-latest
+    needs: define-variable
     steps:
       - uses: actions/checkout@v3
         with:
