@@ -38,6 +38,7 @@ jobs:
         run: echo "passou"
 
   other:
+    if: always()
     name: Other
     runs-on: ubuntu-latest
     needs:
