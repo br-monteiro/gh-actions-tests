@@ -46,7 +46,7 @@ jobs:
     name: Other
     runs-on: ubuntu-latest
     env:
-      IS_ALLOWED_TO_RUN: ${{ needs.skiped.result == 'skipped' || needs.skiped.result == 'success' }}
+      IS_ALLOWED_TO_RUN: ${{ (needs.skiped.result == 'skipped' || needs.skiped.result == 'success') && github.job.status == 'success' }}
     needs:
       - define-variable
       - skiped
