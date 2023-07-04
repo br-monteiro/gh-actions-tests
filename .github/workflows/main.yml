@@ -39,7 +39,7 @@ jobs:
         run: echo "passou"
 
   other:
-    if: ${{ github.jobs.skiped.conclusion != 'error' }}
+    if: ${{ github.jobs.skiped.status == 'skipped' }}
     name: Other
     runs-on: ubuntu-latest
     needs:
