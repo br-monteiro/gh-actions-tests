@@ -40,21 +40,26 @@ jobs:
         run: echo "passou"
 
   other:
-    if: ${{ needs.skiped.result == 'skipped' }}
+    if: always()
     name: Other
     runs-on: ubuntu-latest
+    env:
+      IS_ALLOWED_TO_RUN: ${{ needs.skiped.result == 'skipped' || needs.skiped.result == 'success' }}
     needs:
       - define-variable
       - skiped
     steps:
       - name: print value
+        if: ${{ env.IS_ALLOWED_TO_RUN == 'true' }}
         run: echo "passou"
 
       - name: print result
+        if: ${{ env.IS_ALLOWED_TO_RUN == 'true' }}
         run: |
           echo "result: ${{ needs.skiped.result == 'skipped' }}"
 
       - name: print result
+        if: ${{ env.IS_ALLOWED_TO_RUN == 'true' }}
         run: |
           echo "result: ${{ needs.skiped.result }}"
 
