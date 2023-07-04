@@ -43,8 +43,6 @@ jobs:
 
   should-run:
     if: always()
-    env:
-      SHOULD_RUN: ${{ (needs.skiped.result == 'skipped' || needs.skiped.result == 'success') && needs.define-variable.result == 'success' }}
     name: Should Run
     needs:
       - define-variable
@@ -52,6 +50,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: exit code
+        env:
+          SHOULD_RUN: ${{ (needs.skiped.result == 'skipped' || needs.skiped.result == 'success') && needs.define-variable.result == 'success' }}
         run: |
           echo "should run is $SHOULD_RUN"
           echo "result skiped: ${{ needs.skiped.result }}"
