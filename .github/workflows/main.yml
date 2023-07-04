@@ -42,26 +42,22 @@ jobs:
   should-run:
     if: always()
     env:
-      IS_ALLOWED_TO_RUN: ${{ (needs.skiped.result == 'skipped' || needs.skiped.result == 'success') && github.job.status == 'success' }}
+      SHOULD_RUN: ${{ (needs.skiped.result == 'skipped' || needs.skiped.result == 'success') && github.job.status == 'success' }}
     name: Should Run
     needs: skiped
     runs-on: ubuntu-latest
     steps:
       - name: exit code
         run: |
-          if [ $IS_ALLOWED_TO_RUN="true" ]
+          if [ $SHOULD_RUN="true" ]
           then
             exit 0
           else
             exit 1
           fi
-
-  other:
-    if: success()
-    name: Other
-    runs-on: ubuntu-latest
-    needs:
-      - should-run
-    steps:
       - name: print value
         run: echo "passou"
+
+      - name: print value
+        run: echo "passou"
+
