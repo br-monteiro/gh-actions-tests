@@ -53,6 +53,7 @@ jobs:
         run: |
           if [ $SHOULD_RUN="false" ]
           then
+            echo "should run is false"
             exit 1
           fi
       - name: print value
