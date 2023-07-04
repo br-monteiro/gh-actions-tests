@@ -52,6 +52,8 @@ jobs:
       - name: exit code
         run: |
           echo "should run is $SHOULD_RUN"
+          echo "${{ needs.skiped.result }}"
+          echo "${{ github.job.status }}"
           if [ $SHOULD_RUN="false" ]
           then
             echo "should run is false"
