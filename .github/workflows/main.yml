@@ -51,6 +51,7 @@ jobs:
     steps:
       - name: exit code
         run: |
+          echo "should run is $SHOULD_RUN"
           if [ $SHOULD_RUN="false" ]
           then
             echo "should run is false"
