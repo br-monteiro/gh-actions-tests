@@ -39,7 +39,7 @@ jobs:
         run: echo "passou"
 
   other:
-    if: ${{ needs.skiped.result != 'error' }}
+    if: ${{ needs.skiped.result == 'skipped' }}
     name: Other
     runs-on: ubuntu-latest
     needs:
