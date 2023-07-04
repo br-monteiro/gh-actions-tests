@@ -57,7 +57,7 @@ jobs:
           echo "result skiped: ${{ needs.skiped.result }}"
           echo "result define-variable: ${{ needs.define-variable.result }}"
           echo "expression: ${{ (needs.skiped.result == 'skipped' || needs.skiped.result == 'success') && needs.define-variable.result == 'success' }}"
-          if [ "$SHOULD_RUN"="false" ]
+          if [[ "$SHOULD_RUN" == "false" ]]
           then
             echo "should run is false"
             exit 1
