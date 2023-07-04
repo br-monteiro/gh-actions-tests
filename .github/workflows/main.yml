@@ -51,10 +51,8 @@ jobs:
     steps:
       - name: exit code
         run: |
-          if [ $SHOULD_RUN="true" ]
+          if [ $SHOULD_RUN="false" ]
           then
-            exit 0
-          else
             exit 1
           fi
       - name: print value
