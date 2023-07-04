@@ -46,14 +46,16 @@ jobs:
     env:
       SHOULD_RUN: ${{ (needs.skiped.result == 'skipped' || needs.skiped.result == 'success') && needs.define-variable.result == 'success' }}
     name: Should Run
-    needs: skiped
+    needs:
+      - define-variable
+      - skiped
     runs-on: ubuntu-latest
     steps:
       - name: exit code
         run: |
           echo "should run is $SHOULD_RUN"
-          echo "result: ${{ needs.skiped.result }}"
-          echo "status: ${{ github.job.status }}"
+          echo "result skiped: ${{ needs.skiped.result }}"
+          echo "result define-variable: ${{ needs.define-variable.result }}"
           if [ $SHOULD_RUN="false" ]
           then
             echo "should run is false"
