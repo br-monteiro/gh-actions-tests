@@ -44,7 +44,7 @@ jobs:
   should-run:
     if: always()
     env:
-      SHOULD_RUN: ${{ (needs.skiped.result == 'skipped' || needs.skiped.result == 'success') && github.job.status == 'success' }}
+      SHOULD_RUN: ${{ (needs.skiped.result == 'skipped' || needs.skiped.result == 'success') && needs.define-variable.result == 'success' }}
     name: Should Run
     needs: skiped
     runs-on: ubuntu-latest
