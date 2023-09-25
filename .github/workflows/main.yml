@@ -20,8 +20,9 @@ jobs:
     - name: Show PR title
       run: echo "title:${{ github.event.pull_request.title }}"
 
-    - name: Show PR details
-      run: echo "PR:${{ github.event.pull_request }}"
+    - name: Show PR details JSON
+      run: echo "${{ toJson(github.event.pull_request) }}"
 
-    - name: Show github.envent details
-      run: echo "${{ github.event }}"
+    - name: Show github.envent details JSON
+      run: echo "${{ toJson(github.event) }}
+
