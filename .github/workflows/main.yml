@@ -1,70 +1,27 @@
-name: Test
+name: CI
+
 on:
-  push:
-  workflow_dispatch:
-    inputs:
-      should_build_images:
-        description: 'Build Docker Images?'
-        type: boolean
-        default: false
-env:
-  REPOSITORY: zap/squad-consideration/anonymous
+  pull_request:
+    types: [ labeled ]
+
 jobs:
-  define-variable:
-    name: Define version
+  build:
+    if: ${{ github.event.label.name == 'bug' }}
     runs-on: ubuntu-latest
-    outputs:
-      SHA_6: ${{ steps.define-variable.outputs.SHA_6 }}
+
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
-      - name: define variable
-        id: define-variable
-        run: |
-          echo "SHA_6=${GITHUB_SHA::6}" >> $GITHUB_ENV
-          echo "SHA_6=${GITHUB_SHA::6}" >> $GITHUB_OUTPUT
-      - name: print value
-        run: echo "sha_6=$SHA_6"
-      - name: print var
-        run: echo "url=${{ vars.FIRST_VAR }}"
-      - name: force error
-        run: exit 1
+    - name: Run a one-line script
+      run: echo Hello, world!
 
-  skiped:
-    if: ${{ github.event.inputs.should_build_images == 'true' }}
-    name: Skiped
-    needs: define-variable
-    runs-on: ubuntu-latest
-    steps:
-      - name: print value
-        run: echo "passou"
+    - name: Show PR number
+      run: echo "PR:${{ github.event.number }}"
 
-  should-run:
-    if: always()
-    name: Should Run
-    needs:
-      - define-variable
-      - skiped
-    runs-on: ubuntu-latest
-    steps:
-      - name: exit code
-        env:
-          SHOULD_RUN: ${{ (needs.skiped.result == 'skipped' || needs.skiped.result == 'success') && needs.define-variable.result == 'success' }}
-        run: |
-          echo "should run is $SHOULD_RUN"
-          echo "result skiped: ${{ needs.skiped.result }}"
-          echo "result define-variable: ${{ needs.define-variable.result }}"
-          echo "expression: ${{ (needs.skiped.result == 'skipped' || needs.skiped.result == 'success') && needs.define-variable.result == 'success' }}"
-          if [[ "$SHOULD_RUN" == "false" ]]
-          then
-            echo "should run is false"
-            exit 1
-          fi
-      - name: print value
-        run: echo "passou"
+    - name: Show PR title
+      run: echo "title:${{ github.event.pull_request.title }}"
 
-      - name: print value
-        run: echo "passou"
+    - name: Show PR details
+      run: echo "PR:${{ github.event.pull_request }}"
 
+    - name: Show github.envent details
+      run: echo "${{ github.event }}"
