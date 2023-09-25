@@ -11,6 +11,11 @@ jobs:
 
     steps:
 
+    - name: Setup javascript
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
     - name: Run a one-line script
       run: echo Hello, world!
 
@@ -20,9 +25,11 @@ jobs:
     - name: Show PR title
       run: echo "title:${{ github.event.pull_request.title }}"
 
-    - name: Show PR details JSON
-      run: echo "${{ toJson(github.event.pull_request) }}"
-
-    - name: Show github.envent details JSON
-      run: echo "${{ toJson(github.event) }}
-
+    - name: Show PR details
+      env:
+        PULL_REQUEST: ${{ toJson(github.event.pull_request) }}
+        EVENT: ${{ toJson(github.event) }}
+      run: |
+        node -e "console.log(JSON.stringify(process.env.PULL_REQUEST, null, 2))"
+        echo "---------------------------------"
+        node -e "console.log(JSON.stringify(process.env.EVENT, null, 2))"
