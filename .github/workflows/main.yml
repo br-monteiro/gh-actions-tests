@@ -1,6 +1,6 @@
 name: Test
 on:
-  push:
+  # push:
   workflow_dispatch:
   release:
     types: [published]
@@ -20,6 +20,10 @@ jobs:
         run: echo "ref=${{ github.ref }}"
       - name: print value
         run: echo $GITHUB_REF
+      - name: print value
+        run: echo $GITHUB_REF_NAME
+      - name: print value
+        run: echo ${{ github.ref_name }}
   # define-variable:
   #   name: Define version
   #   runs-on: ubuntu-latest
