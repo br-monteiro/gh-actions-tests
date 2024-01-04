@@ -12,9 +12,23 @@ on:
 # env:
 #   REPOSITORY: zap/squad-consideration/anonymous
 jobs:
+  check_tag:
+    name: "Check Tag"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Check if tag is valid
+        run: |
+          if [[ ! $GITHUB_REF_NAME =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9]+(\.[0-9]+)?)?$ ]]; then
+            echo "Tag value is not valid. Please use a valid tag value."
+            exit 1
+          fi
+
   print-ref:
     name: Print Ref
     runs-on: ubuntu-latest
+    needs: check_tag
     steps:
       - name: print value
         run: echo "ref=${{ github.ref }}"
