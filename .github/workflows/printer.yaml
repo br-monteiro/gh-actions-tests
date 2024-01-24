@@ -1,0 +1,16 @@
+name: printer
+
+on:
+  workflow_call:
+    inputs:
+      PLATFORM:
+        required: true
+        type: string
+
+jobs:
+  show-platform:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show platform
+        run: |
+          echo "platform: ${{ inputs.PLATFORM }}"
