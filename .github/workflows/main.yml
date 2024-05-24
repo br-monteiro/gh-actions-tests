@@ -1,18 +1,13 @@
 name: Test
 on:
   workflow_dispatch:
-    inputs:
-      platform:
-        type: choice
-        default: k8s
-        description: Choice a platform
-        required: true
-        options:
-          - k8s
-          - cops
 
 jobs:
   show-platform:
-    uses: ./.github/workflows/printer.yaml
-    with:
-      PLATFORM: ${{ github.event.inputs.platform }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: setFailed exit code
+      uses: actions/github-script@v5
+      with:
+        script: |
+          core.setFailed("This is a failed job generated for Lucas Faria")
