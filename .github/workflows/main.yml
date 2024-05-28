@@ -11,7 +11,7 @@ jobs:
         with:
           script: |
             if (!/^v[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9]+(\.[0-9]+)?)?$/.test('${{ github.ref_name }}')) {
-              core.setFailed("This is a failed job generated for Lucas Faria")
+              core.setFailed("This is a failed job generated for Lucas Faria:" + ${{ github.ref_name }})
             } else {
               // just show success message
               console.log("This is a success job generated for Lucas Faria")
