@@ -6,8 +6,13 @@ jobs:
   show-platform:
     runs-on: ubuntu-latest
     steps:
-    - name: setFailed exit code
-      uses: actions/github-script@v7
-      with:
-        script: |
-          core.setFailed("This is a failed job generated for Lucas Faria")
+      - name: Check if tag is valid
+        uses: actions/github-script@v7
+        with:
+          script: |
+            if (!/^v[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9]+(\.[0-9]+)?)?$/.test('${{ github.ref_name }}')) {
+              core.setFailed("This is a failed job generated for Lucas Faria")
+            } else {
+              // just show success message
+              console.log("This is a success job generated for Lucas Faria")
+            }
