@@ -1,18 +1,28 @@
 name: Test
 on:
   workflow_dispatch:
+    inputs:
+      default_tag:
+        description: 'Build image with lates tag'
+        default: true
+        type: boolean
+  release:
+    types: [published]
+
+env:
+  DEFAULT_IMAGE_TAG: latest,${{ github.ref_name }}
 
 jobs:
   show-platform:
     runs-on: ubuntu-latest
     steps:
-      - name: Check if tag is valid
-        uses: actions/github-script@v7
-        with:
-          script: |
-            if (!/^v[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9]+(\.[0-9]+)?)?$/.test('${{ github.ref_name }}')) {
-              core.setFailed("This is a failed job generated for Lucas Faria: ${{ github.ref_name }}")
-            } else {
-              // just show success message
-              console.log("This is a success job generated for Lucas Faria")
-            }
+      - name: Set Docker image tag
+        run: |
+          if [[ "${{ github.ref_name }}" == *-* ]] || [[ "${{ github.event.inputs.default_tag }}" == "false" ]]; then
+            echo "Setting image tag to ref_name"
+            echo "DEFAULT_IMAGE_TAG=${{ github.ref_name }}" >> "$GITHUB_ENV"
+          fi
+
+      - name: Show image tag
+        run: |
+          echo "DEFAULT_IMAGE_TAG=${DEFAULT_IMAGE_TAG}"
