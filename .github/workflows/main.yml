@@ -6,6 +6,13 @@ on:
         description: 'Build image with lates tag'
         default: true
         type: boolean
+      env:
+        type: choice
+        description: 'Environment'
+        options:
+          - dev
+          - prd
+        default: dev
   release:
     types: [published]
 
