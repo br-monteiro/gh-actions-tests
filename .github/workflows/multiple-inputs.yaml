@@ -33,3 +33,10 @@ jobs:
       run: |
         echo "Message is: ${{ github.event.inputs.message }}"
 
+    - name: Show commit SHA
+      env:
+        COMMIT_HASH: ${GITHUB_SHA:0:7}
+      run: |
+        echo "The commit SHA is ${{ github.sha }}"
+        echo "The short commit hash is $COMMIT_HASH"
+
