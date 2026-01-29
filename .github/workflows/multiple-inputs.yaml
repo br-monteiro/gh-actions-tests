@@ -39,4 +39,5 @@ jobs:
       run: |
         echo "The commit SHA is ${{ github.sha }}"
         echo "The short commit hash is $COMMIT_HASH"
+        echo "The short commit hash is ${GITHUB_SHA:0:7}"
 
