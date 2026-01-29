@@ -24,3 +24,12 @@ jobs:
     steps:
     - name: Send greeting
       run: echo "${{ github.event.inputs.message }} ${{ fromJSON('["", "🥳"]')[github.event.inputs.use-emoji == 'true'] }} ${{ github.event.inputs.name }}"
+
+    - name: Emoji?
+      if: ${{ github.event.inputs.use-emoji == 'true' }}
+      run: echo "You chose to use emojis! 🎉🤣"
+
+    - name: Show msg
+      run: |
+        echo "Message is: ${{ github.event.inputs.message }}"
+
