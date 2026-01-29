@@ -41,3 +41,11 @@ jobs:
         echo "The short commit hash is $COMMIT_HASH"
         echo "The short commit hash is ${GITHUB_SHA:0:7}"
 
+    - name: check if tag is valid
+      run: |
+        if [[ ! ${{ github.ref_name }} =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9]+(\.[0-9]+)?)?$ ]]; then
+          echo "Tag value is not valid. Please use a valid tag value."
+        else
+          echo "Tag value is valid."
+        fi
+
