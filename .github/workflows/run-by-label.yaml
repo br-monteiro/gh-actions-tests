@@ -28,4 +28,4 @@ jobs:
       - name: Remove label
         uses: actions-ecosystem/action-remove-labels@v1
         with:
-          labels: ${{ env.INTEGRATION_TESTS_LABEL }}
+          labels: 'run:integration-tests'
