@@ -27,6 +27,7 @@ jobs:
         # Here you would add the actual commands to run your integration tests
 
       - name: Remove label
+        if: always() # Ensure the label is removed even if tests fail
         uses: actions-ecosystem/action-remove-labels@v1
         with:
           labels: 'run:integration-tests'
