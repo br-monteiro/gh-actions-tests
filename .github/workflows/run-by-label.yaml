@@ -1,0 +1,32 @@
+name: Tests
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types:
+      - labeled
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+env:
+  INTEGRATION_TESTS_LABEL: run:integration-tests
+
+jobs:
+  integration-tests:
+    if: ${{ github.event.label.name == 'run:integration-tests' }}
+    name: Integration Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+
+      - run: echo "Running integration tests..."
+        # Here you would add the actual commands to run your integration tests
+
+      - name: Remove label
+        uses: actions-ecosystem/action-remove-labels@v1
+        with:
+          labels: 'run:integration-tests'
