@@ -16,7 +16,7 @@ jobs:
   integration-tests:
     if: ${{ github.event.label.name == 'run:integration-tests' }}
     name: Integration Tests
-    runs-on: [self-hosted, production-large]
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
         with:
