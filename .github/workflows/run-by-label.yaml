@@ -9,6 +9,7 @@ on:
 permissions:
   contents: read
   issues: write
+  pull-requests: write
 env:
   INTEGRATION_TESTS_LABEL: run:integration-tests
 
