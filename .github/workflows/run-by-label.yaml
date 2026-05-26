@@ -14,7 +14,7 @@ env:
 
 jobs:
   integration-tests:
-    if: ${{ github.event.label.name == env.INTEGRATION_TESTS_LABEL }}
+    if: ${{ github.event.label.name == github.env.INTEGRATION_TESTS_LABEL }}
     name: Integration Tests
     runs-on: [self-hosted, production-large]
     steps:
