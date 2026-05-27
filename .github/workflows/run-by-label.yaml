@@ -10,8 +10,6 @@ permissions:
   contents: read
   issues: write
   pull-requests: write
-env:
-  INTEGRATION_TESTS_LABEL: run:integration-tests
 
 jobs:
   integration-tests:
@@ -26,6 +24,7 @@ jobs:
         id: check_label
         run: |
           if [[ ! " ${GITHUB_EVENT_LABELS[*]} " =~ " run:integration-tests " ]]; then
+            echo ${GITHUB_EVENT_LABELS[*]}
             echo "Label 'run:integration-tests' not found. Skipping integration tests."
             exit 1
           fi
