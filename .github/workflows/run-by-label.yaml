@@ -10,18 +10,20 @@ permissions:
   contents: read
   issues: write
   pull-requests: write
-env:
-  INTEGRATION_TESTS_LABEL: run:integration-tests
 
 jobs:
   integration-tests:
-    if: ${{ github.event.label.name == 'run:integration-tests' }}
     name: Integration Tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
         with:
           fetch-depth: 1
+
+      - name: check if label is correct
+        # if not contains, exit with error, so the workflow will not run
+        if: ${{ !contains(github.event.pull_request.labels.*.name, 'run:integration-tests') }}
+        run: exit 1
 
       - run: echo "Running integration tests..."
         # Here you would add the actual commands to run your integration tests
