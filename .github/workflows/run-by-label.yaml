@@ -27,6 +27,8 @@ jobs:
       - run: echo "Running integration tests..."
         # Here you would add the actual commands to run your integration tests
 
+      - run: exit 1 # Simulate a test failure for demonstration purposes
+
       - name: Remove label
         if: always() # Ensure the label is removed even if tests fail
         uses: actions-ecosystem/action-remove-labels@v1
