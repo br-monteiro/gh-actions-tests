@@ -21,13 +21,9 @@ jobs:
           fetch-depth: 1
 
       - name: check if label is correct
-        id: check_label
-        run: |
-          if [[ ! " ${GITHUB_EVENT_LABELS[*]} " =~ " run:integration-tests " ]]; then
-            echo ${GITHUB_EVENT_LABELS[*]}
-            echo "Label 'run:integration-tests' not found. Skipping integration tests."
-            exit 1
-          fi
+        # if not contains, exit with error, so the workflow will not run
+        if: ${{ !contains(github.event.pull_request.labels.*.name, 'run:integration-tests') }}
+        run: exit 1
 
       - run: echo "Running integration tests..."
         # Here you would add the actual commands to run your integration tests
